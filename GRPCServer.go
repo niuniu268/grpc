@@ -8,19 +8,20 @@ import (
 )
 
 func main() {
-	rpcServer := grpc.NewServer()
-	service.RegisterUserServiceServer(rpcServer, service.UserService)
 
-	listener, err := net.Listen("tcp", ":8802")
+	listener, err := net.Listen("tcp", ":8800")
 
 	if err != nil {
-		log.Fatal("moniter error: ", err)
+		log.Fatal("monitor error: ", err)
 	}
+
+	rpcServer := grpc.NewServer()
+	service.RegisterUserServiceServer(rpcServer, &service.UserService)
 
 	err2 := rpcServer.Serve(listener)
 
 	if err2 != nil {
-		log.Fatal("lauch service error", err2)
+		log.Fatal("launch service error", err2)
 	}
 
 }

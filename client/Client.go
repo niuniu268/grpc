@@ -1,7 +1,7 @@
-package client
+package main
 
 import (
-	"DemogRPC/service"
+	"DemogRPC/client/service"
 	"context"
 	"fmt"
 	"google.golang.org/grpc"
@@ -11,20 +11,24 @@ import (
 
 func main() {
 
-	conn, err := grpc.Dial(":8802", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.Dial(":8800", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("server has problem: ", err)
 	}
+
+	fmt.Println("gRPC is connecting", conn.GetState())
 
 	defer conn.Close()
 
 	UserServiceClient := service.NewUserServiceClient(conn)
 
-	resp, err := UserServiceClient.GetUser(context.Background(), &service.UserRequest{Username: "niuniu"})
+	req := &service.UserRequest{UserId: 22}
+
+	resp, err := UserServiceClient.GetUserStock(context.Background(), req)
 	if err != nil {
 		log.Fatal("gRPC error: ", err)
 	}
 
-	fmt.Println("gRPC success，ProdStock = ", resp.Age)
+	fmt.Println("gRPC success，ProdStock = ", resp.ProdStock)
 
 }

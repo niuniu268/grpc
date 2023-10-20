@@ -6,21 +6,15 @@ package service;
 
 message UserRequest{
 
-  string username = 1;
-  int32 age = 2;
-  optional string password = 3;
-  repeated string address =4;
+  int32 user_id = 1;
 }
 
 
 message UserResponse{
 
-  string username = 1;
-  int32 age = 2;
-  optional string password = 3;
-  repeated string address =4;
+  int32 prod_stock = 1;
 }
 
 service UserService{
-  rpc GetUser(UserRequest) returns(UserResponse);
+  rpc GetUserStock(UserRequest) returns(UserResponse){};
 }
