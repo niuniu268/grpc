@@ -1,6 +1,7 @@
 package main
 
 import (
+	"DemogRPC/client/auth"
 	"DemogRPC/client/service"
 	"context"
 	"fmt"
@@ -11,7 +12,12 @@ import (
 
 func main() {
 
-	conn, err := grpc.Dial(":8800", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	token := &auth.Authentication{
+		User:     "admin",
+		Password: "admin",
+	}
+
+	conn, err := grpc.Dial(":8800", grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithPerRPCCredentials(token))
 	if err != nil {
 		log.Fatal("server has problem: ", err)
 	}
