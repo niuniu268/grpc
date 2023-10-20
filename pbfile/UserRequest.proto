@@ -20,3 +20,7 @@ message UserResponse{
   optional string password = 3;
   repeated string address =4;
 }
+
+service UserService{
+  rpc GetUser(UserRequest) returns(UserResponse);
+}
