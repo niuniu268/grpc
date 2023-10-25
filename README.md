@@ -40,3 +40,15 @@ protoc --go_out=../service --go_opt=paths=source_relative --go-grpc_out=../servi
 
 - submit token with username is "admin" and password is "admin" which is correct
 ![gRPC](https://github.com/niuniu268/grpc/blob/master/img/Screenshot%202023-10-20%20at%2015.26.06.png?raw=true)
+
+## Test
+
+``` 
+go install github.com/golang/mock/mockgen@latest
+```
+```
+mockgen -destination=mocks/mock_service.go -package=mocks DemogRPC/client/service UserServiceClient
+```
+```go test -v ```
+
+

@@ -1,4 +1,4 @@
-package main
+package client
 
 import (
 	"DemogRPC/client/auth"
@@ -24,7 +24,12 @@ func main() {
 
 	fmt.Println("gRPC is connecting", conn.GetState())
 
-	defer conn.Close()
+	defer func(conn *grpc.ClientConn) {
+		err := conn.Close()
+		if err != nil {
+
+		}
+	}(conn)
 
 	UserServiceClient := service.NewUserServiceClient(conn)
 
